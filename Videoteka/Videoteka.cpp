@@ -72,12 +72,12 @@ void findGenre(Movie* movies, int size, int genre) {
 	}
 }
 Movie createMovie() {
-	Movie temp;
+	Movie temp; //новый экземпляр структуры Movie
 	cout << "Creating new Movie\nEnter name:" << endl;
-	getchar();
+	//getchar(); //ПРОВЕРИТЬ НУЖЕН ЛИ
 	getline(cin, temp.name);
 	cout << "Enter director: " << endl;
-	getline(cin, temp.director);
+	getline(cin, temp.director); //взять из входящего потока и поместить в поле director экземпляра структуры 
 	cout << "Enter genre: " << endl;
 	printMenuGenre();
 	cin >> temp.genre;
