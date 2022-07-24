@@ -1,4 +1,4 @@
-//Lesson.16 Создать структуру ВИДЕОМАГАЗИН со следующими
+//Lesson 16: Создать структуру ВИДЕОМАГАЗИН со следующими
 //полями:
 // Название фильма; Режиссер; Жанр; Рейтинг популярности; Цена диска.
 // Реализовать следующие возможности:
@@ -19,7 +19,7 @@ using namespace std;
 enum genre { Drama, Comedy, Musical, Romance, RomanticСomedy, Detective, Action };
 //перечисление с константами с значениями от 0 до 6
 
-struct Movie { 
+struct Movie { //структура единицы коллекции
 	string name;
 	string director;
 	int genre;
@@ -112,14 +112,14 @@ Movie* addMovie(Movie* movies, int& size) {//в main передается текущий массив дл
 	Movie* temp = new Movie[++size]; //выделяем память по новый массив с увеличенным размером
 	for (size_t i = 0; i < size - 1; i++) //size-1 чтобы при итерации не выйти за пределы копируемого массива
 	{
-		temp[i] = movies[i]; //поочередно копируем значения элементов массива
+		temp[i] = movies[i]; //поочередно копируем значения элементов массива из текущего в новый
 	}
 	temp[size - 1] = createMovie();//был массив [3] теперь [4], последнему элементу массива - [4-1] присваиваем результат createMovie
 	delete[] movies; //удаляем старый массив
 	return temp; //возвращаем новый со старыми и новыми данными, с другим адресом
 }
 
-void searchMoviesByGenre(Movie*& movies, int size, int genre, Movie*& outMovies, int& sizeOut) {//ЗДЕСЬ ПОПРОБОВАТЬ УБРАТЬ РАЗИМЕНОВАНИЕ
+void searchMoviesByGenre(Movie*& movies, int size, int genre, Movie*& outMovies, int& sizeOut) {
 //принимает текущий обновленный массив структур, его размер, значение enum жанра, переданный нулевой массив под фильмы, его размер (нулевой)
 	for (int i = 0; i < size; i++) {//цикл определения размера массива с искомым жанром
 		if (movies[i].genre == genre) {
@@ -167,19 +167,19 @@ int main()
 	
 	//****добавление нового фильма****//
 	films = addMovie(films, size); //указателю на массив коллекций присвоить результат работы addMovie
-	cout << "UPDATED COLLECTION: " << endl;
+	cout << "\nUPDATED COLLECTION: " << endl;
 	printAllMovies(films, size); //коллекция после добавления
 	
 	//****отбор фмльмов по жанру****//
 	Movie* comedyFilms = nullptr; //нулевой указатель на новый массив определенного жанра
 	int sizeComedy = 0; //первоначальный размер
-	cout << "FIND FILMS BY GENRE\nEnter genre:" << endl;
+	cout << "FIND FILMS BY GENRE: " << endl;
 	searchMoviesByGenre(films, size, Drama, comedyFilms, sizeComedy); /*принимает массив структур, его размер, enum жанра с int значением, 
 	созданный нулевой массив под выбранный жанр, его размер (нулевой)*/
 	printAllMovies(comedyFilms, sizeComedy);
 
 	//****поиск фильма с масимальным рейтингом в жанре****//
-	Movie top = getTopFilmInGenre(films, size, Drama); //принимает массив структур, его размер, значение жанра в enum //ENUM С ЧИСЛЕННОГО ЗНАЧЕНИЯ ЗАМЕНЕН НА ENUM
+	Movie top = getTopFilmInGenre(films, size, Drama); //принимает массив структур, его размер, значение жанра в enum 
 	cout << "TOP MOVIE IN GENRE " << printGenre(Drama) << ":" << endl;
 	printMovie(top);
 	delete[] films; //освобождение динамической памяти под массив
