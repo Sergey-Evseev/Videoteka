@@ -73,7 +73,8 @@ void findGenre(Movie* movies, int size, int genre) {
 }
 Movie createMovie() {
 	Movie temp; //создаем новый экземпляр структуры Movie
-	cout << "Creating new Movie\nEnter name:" << endl;	
+	cout << "Creating new Movie\nEnter name:" << endl;
+	//getchar(); //ПРОВЕРИТЬ НУЖЕН ЛИ
 	getline(cin, temp.name);
 	cout << "Enter director: " << endl;
 	getline(cin, temp.director); //взять из входящего потока и поместить в поле director экземпляра структуры 
@@ -102,7 +103,7 @@ void printMovie(Movie m) {//выводятся поля каждой структуры
 }
 
 void printAllMovies(Movie* movies, int &size) { //передаем указатель на массив объектов-структур и ссылку на его размер
-	for (int i = 0; i < size; i++) { //в цикле в printMovie поочередно передается каждый объект коллекции (массива)
+	for (int i = 0; i < size; i++) { //в цикле в printMovie поочередно передается каждый объект
 		printMovie(movies[i]);
 	}
 	cout << endl;
@@ -166,13 +167,13 @@ int main()
 	films = addMovie(films, size); //указателю на массив коллекций присвоить результат работы addMovie
 	cout << "Updated collection: " << endl;
 	printAllMovies(films, size); //коллекция после добавления
-	Movie* comedyFilms = nullptr; //нулевой указатель на новый массив определенного жанра
-	int sizeComedy = 0; //первоначальный размер
-	cout << "Find films by genre\nEnter genre:" << endl;
+	Movie* comedyFilms = nullptr;
+	int sizeComedy = 0;
+	cout << "Find films" << endl;
 	searchMoviesByGenre(films, size, Drama, comedyFilms, sizeComedy);
 	printAllMovies(comedyFilms, sizeComedy);
 	Movie top = getTopFilmInGenre(films, size, 0);
 	cout << "Find top" << endl;
 	printMovie(top);
-	delete[] films; //освобождение динамической памяти под массив
+	delete[] films;
 }

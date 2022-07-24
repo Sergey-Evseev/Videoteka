@@ -73,7 +73,8 @@ void findGenre(Movie* movies, int size, int genre) {
 }
 Movie createMovie() {
 	Movie temp; //создаем новый экземпляр структуры Movie
-	cout << "Creating new Movie\nEnter name:" << endl;	
+	cout << "Creating new Movie\nEnter name:" << endl;
+	//getchar(); //ПРОВЕРИТЬ НУЖЕН ЛИ
 	getline(cin, temp.name);
 	cout << "Enter director: " << endl;
 	getline(cin, temp.director); //взять из входящего потока и поместить в поле director экземпляра структуры 
@@ -166,9 +167,9 @@ int main()
 	films = addMovie(films, size); //указателю на массив коллекций присвоить результат работы addMovie
 	cout << "Updated collection: " << endl;
 	printAllMovies(films, size); //коллекция после добавления
-	Movie* comedyFilms = nullptr; //нулевой указатель на новый массив определенного жанра
+	Movie* comedyFilms = nullptr; //нулевой указатель на массив определенного жанра
 	int sizeComedy = 0; //первоначальный размер
-	cout << "Find films by genre\nEnter genre:" << endl;
+	cout << "Find films by genre\n Enter genre:" << endl;
 	searchMoviesByGenre(films, size, Drama, comedyFilms, sizeComedy);
 	printAllMovies(comedyFilms, sizeComedy);
 	Movie top = getTopFilmInGenre(films, size, 0);

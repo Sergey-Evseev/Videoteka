@@ -44,7 +44,7 @@ string printGenre(int a) { //на переданный int возвращает строку в которую запис
 		s = "Romance";
 		break;
 	case RomanticСomedy:
-		s = "Romantic Comedy";
+		s = "RomanticComedy";
 		break;
 	case Detective:
 		s = "Detective";
@@ -72,8 +72,9 @@ void findGenre(Movie* movies, int size, int genre) {
 	}
 }
 Movie createMovie() {
-	Movie temp; //создаем новый экземпляр структуры Movie
-	cout << "Creating new Movie\nEnter name:" << endl;	
+	Movie temp; //новый экземпляр структуры Movie
+	cout << "Creating new Movie\nEnter name:" << endl;
+	//getchar(); //ПРОВЕРИТЬ НУЖЕН ЛИ
 	getline(cin, temp.name);
 	cout << "Enter director: " << endl;
 	getline(cin, temp.director); //взять из входящего потока и поместить в поле director экземпляра структуры 
@@ -102,7 +103,7 @@ void printMovie(Movie m) {//выводятся поля каждой структуры
 }
 
 void printAllMovies(Movie* movies, int &size) { //передаем указатель на массив объектов-структур и ссылку на его размер
-	for (int i = 0; i < size; i++) { //в цикле в printMovie поочередно передается каждый объект коллекции (массива)
+	for (int i = 0; i < size; i++) { //в цикле в printMovie поочередно передается каждый объект
 		printMovie(movies[i]);
 	}
 	cout << endl;
@@ -112,7 +113,7 @@ Movie* addMovie(Movie* movies, int& size) {//в main передается текущий массив дл
 	Movie* temp = new Movie[++size]; //выделяем память по новый массив с увеличенным размером
 	for (size_t i = 0; i < size - 1; i++) //size-1 чтобы при итерации не выйти за пределы копируемого массива
 	{
-		temp[i] = movies[i]; //поочередно копируем значения элементов массива
+		temp[i] = movies[i];
 	}
 	temp[size - 1] = createMovie();//был массив [3] теперь [4], последнему элементу массива - [4-1] присваиваем результат createMovie
 	delete[] movies; //удаляем старый массив
@@ -164,15 +165,15 @@ int main()
 	Movie* films = new Movie[size]{ f1,f2,f3 };//выделяем память под динамический массив типа Movie и инициализируем его структурами 
 	printAllMovies(films, size); //вывод первоначальной коллекции
 	films = addMovie(films, size); //указателю на массив коллекций присвоить результат работы addMovie
-	cout << "Updated collection: " << endl;
-	printAllMovies(films, size); //коллекция после добавления
-	Movie* comedyFilms = nullptr; //нулевой указатель на новый массив определенного жанра
-	int sizeComedy = 0; //первоначальный размер
-	cout << "Find films by genre\nEnter genre:" << endl;
+	cout << "Add films" << endl;
+	printAllMovies(films, size);
+	Movie* comedyFilms = nullptr;
+	int sizeComedy = 0;
+	cout << "Find films" << endl;
 	searchMoviesByGenre(films, size, Drama, comedyFilms, sizeComedy);
 	printAllMovies(comedyFilms, sizeComedy);
 	Movie top = getTopFilmInGenre(films, size, 0);
 	cout << "Find top" << endl;
 	printMovie(top);
-	delete[] films; //освобождение динамической памяти под массив
+	delete[] films;
 }
