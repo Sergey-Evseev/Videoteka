@@ -120,16 +120,15 @@ Movie* addMovie(Movie* movies, int& size) {//в main передается текущий массив дл
 }
 
 void searchMoviesByGenre(Movie*& movies, int size, int genre, Movie*& outMovies, int& sizeOut) {
-//принимает текущий обновленный массив структур, его размер, переданный нулевой массив под фильмы, его размер (нулевой)
-	for (int i = 0; i < size; i++) {//цикл определения размера массива с искомым жанром
+	for (int i = 0; i < size; i++) {
 		if (movies[i].genre == genre) {
 			++sizeOut;
 		}
 	}
-	outMovies = new Movie[sizeOut]; //переданному по ссылке массиву (созданному в main) присваиваем новый массив нужного размера
+	outMovies = new Movie[sizeOut];
 	for (int i = 0, j = 0; i < size; i++) {
-		if (movies[i].genre == genre) {//в случае совпадения жанра в нашем массиве с искомым
-			outMovies[j++] = movies[i]; //..записываем 
+		if (movies[i].genre == genre) {
+			outMovies[j++] = movies[i];
 		}
 	}
 }
@@ -155,29 +154,23 @@ Movie getTopFilmInGenre(Movie* films, int size, int genre) {
 
 int main()
 {
-	Movie f1 = { "The Godfather","F.F.Coppola", 0, 9.2, 50 }; //создание экземпляров структур - элементов видеотеки
-	Movie f2 = { "Angry Man","S.Lumet", 1, 8.9, 40 };
+	Movie f1 = { "The Godfather","F.F. Coppola", 0, 9.2, 50 }; //создание экземпляров структур - элементов видеотеки
+	Movie f2 = { "Angry Man","S. Lumet", 1, 8.9, 40 };
 	Movie f3 = { "Pulp Fiction","Q.Tarantino", 0, 8.9, 40 };
 	int size = 3; //размера для создания массива структур
 
-	//****вывод первоначального массива****//
+	/*cout << "Enter collection size:" << endl;
+	cin >> size;*/
 	Movie* films = new Movie[size]{ f1,f2,f3 };//выделяем память под динамический массив типа Movie и инициализируем его структурами 
 	printAllMovies(films, size); //вывод первоначальной коллекции
-	
-	//****добавление нового фильма****//
 	films = addMovie(films, size); //указателю на массив коллекций присвоить результат работы addMovie
 	cout << "Updated collection: " << endl;
 	printAllMovies(films, size); //коллекция после добавления
-	
-	//****отбор фмльмов по жанру****//
 	Movie* comedyFilms = nullptr; //нулевой указатель на новый массив определенного жанра
 	int sizeComedy = 0; //первоначальный размер
 	cout << "Find films by genre\nEnter genre:" << endl;
-	searchMoviesByGenre(films, size, Drama, comedyFilms, sizeComedy); /*принимает массив структур, его размер, enum жанра, 
-	созданный нулевой массив под выбранный жанр, его размер (нулевой)*/
+	searchMoviesByGenre(films, size, Drama, comedyFilms, sizeComedy);
 	printAllMovies(comedyFilms, sizeComedy);
-
-	//****поиск фильма с масимальным рейтингом****//
 	Movie top = getTopFilmInGenre(films, size, 0);
 	cout << "Find top" << endl;
 	printMovie(top);

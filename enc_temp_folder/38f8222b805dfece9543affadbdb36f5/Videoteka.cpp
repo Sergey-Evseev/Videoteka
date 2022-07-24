@@ -126,10 +126,10 @@ void searchMoviesByGenre(Movie*& movies, int size, int genre, Movie*& outMovies,
 			++sizeOut;
 		}
 	}
-	outMovies = new Movie[sizeOut]; //переданному по ссылке массиву (созданному в main) присваиваем новый массив нужного размера
+	outMovies = new Movie[sizeOut]; //создание массива нужного размера
 	for (int i = 0, j = 0; i < size; i++) {
-		if (movies[i].genre == genre) {//в случае совпадения жанра в нашем массиве с искомым
-			outMovies[j++] = movies[i]; //..записываем 
+		if (movies[i].genre == genre) {
+			outMovies[j++] = movies[i];
 		}
 	}
 }

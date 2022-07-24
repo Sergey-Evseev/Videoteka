@@ -121,15 +121,15 @@ Movie* addMovie(Movie* movies, int& size) {//в main передается текущий массив дл
 
 void searchMoviesByGenre(Movie*& movies, int size, int genre, Movie*& outMovies, int& sizeOut) {
 //принимает текущий обновленный массив структур, его размер, переданный нулевой массив под фильмы, его размер (нулевой)
-	for (int i = 0; i < size; i++) {//цикл определения размера массива с искомым жанром
+	for (int i = 0; i < size; i++) {
 		if (movies[i].genre == genre) {
 			++sizeOut;
 		}
 	}
-	outMovies = new Movie[sizeOut]; //переданному по ссылке массиву (созданному в main) присваиваем новый массив нужного размера
+	outMovies = new Movie[sizeOut];
 	for (int i = 0, j = 0; i < size; i++) {
-		if (movies[i].genre == genre) {//в случае совпадения жанра в нашем массиве с искомым
-			outMovies[j++] = movies[i]; //..записываем 
+		if (movies[i].genre == genre) {
+			outMovies[j++] = movies[i];
 		}
 	}
 }

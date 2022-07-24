@@ -120,16 +120,15 @@ Movie* addMovie(Movie* movies, int& size) {//в main передается текущий массив дл
 }
 
 void searchMoviesByGenre(Movie*& movies, int size, int genre, Movie*& outMovies, int& sizeOut) {
-//принимает текущий обновленный массив структур, его размер, переданный нулевой массив под фильмы, его размер (нулевой)
-	for (int i = 0; i < size; i++) {//цикл определения размера массива с искомым жанром
+	for (int i = 0; i < size; i++) {
 		if (movies[i].genre == genre) {
 			++sizeOut;
 		}
 	}
-	outMovies = new Movie[sizeOut]; //переданному по ссылке массиву (созданному в main) присваиваем новый массив нужного размера
+	outMovies = new Movie[sizeOut];
 	for (int i = 0, j = 0; i < size; i++) {
-		if (movies[i].genre == genre) {//в случае совпадения жанра в нашем массиве с искомым
-			outMovies[j++] = movies[i]; //..записываем 
+		if (movies[i].genre == genre) {
+			outMovies[j++] = movies[i];
 		}
 	}
 }
@@ -173,7 +172,7 @@ int main()
 	Movie* comedyFilms = nullptr; //нулевой указатель на новый массив определенного жанра
 	int sizeComedy = 0; //первоначальный размер
 	cout << "Find films by genre\nEnter genre:" << endl;
-	searchMoviesByGenre(films, size, Drama, comedyFilms, sizeComedy); /*принимает массив структур, его размер, enum жанра, 
+	searchMoviesByGenre(films, size, Drama, comedyFilms, sizeComedy); /*принимает массив структур, его размер, жанр, 
 	созданный нулевой массив под выбранный жанр, его размер (нулевой)*/
 	printAllMovies(comedyFilms, sizeComedy);
 
