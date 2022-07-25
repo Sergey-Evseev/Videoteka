@@ -79,7 +79,7 @@ Movie createMovie() {
 	cout << "Enter genre: " << endl;
 	printMenuGenre();
 	cin >> temp.genre;
-	cout << "Enter rating: " << endl;
+	cout << "Enter rating (1-10): " << endl;
 	cin >> temp.rate;
 	cout << "Enter price: " << endl;
 	cin >> temp.price;
@@ -136,7 +136,7 @@ void searchMovieByName(Movie *&films, int size, string name) {
 		cout << "\nWe found: " << endl;
 		printMovie(found);
 	}
-	else cout << "\nNo such movie in the collection" << endl;
+	else cout << "\nNo such movie in the collection :(" << endl;
 }
 
 void searchMoviesByGenre(Movie*& movies, int size, int genre, Movie*& outMovies, int& sizeOut) {
@@ -175,14 +175,20 @@ Movie getTopFilmInGenre(Movie* films, int size, int genre) {//возвращает структу
 }
 
 int main()
-{
+{	
+	//****заполнение первоначального массива****//
 	Movie f1 = { "The Godfather","F.F.Coppola", 0, 9.2, 50 }; //создание экземпляров структур - элементов видеотеки
 	Movie f2 = { "Angry Man","S.Lumet", 1, 8.9, 40 };
 	Movie f3 = { "Pulp Fiction","Q.Tarantino", 0, 8.9, 40 };
 	int size = 3; //размера для создания массива структур
-	
-	//****вывод первоначального массива****//
 	Movie* films = new Movie[size]{ f1,f2,f3 };//выделяем память под динамический массив типа Movie и инициализируем его структурами 
+
+	//****заполнение коллекции вручную ****//
+	/*cout << "Enter the size of the collection: " << endl;
+	cin >> size;	
+	Movie* films = createVideoCollection(size);*/
+	
+	//****вывод первоначального массива****//	
 	cout << "CURRENT COLLECTION: " << endl;
 	printAllMovies(films, size); //вывод первоначальной коллекции
 			
@@ -197,7 +203,7 @@ int main()
 	cout << "Please enter movie name: " << endl;
 	while (cin.get() != '\n'); //пока не будет перевода каретки 
 	getline (cin, line); //считывать и записывать в строку
-	searchMovieByName(films, size, line);
+	searchMovieByName(films, size, line); //передать массив, размер, имя
 	
 	
 	//****отбор фильмов по жанру****//
