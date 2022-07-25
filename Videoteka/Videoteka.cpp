@@ -1,5 +1,4 @@
-//Lesson 16: Создать структуру ВИДЕОМАГАЗИН со следующими
-//полями:
+//Lesson 16: Создать структуру ВИДЕОМАГАЗИН со следующими полями:
 // Название фильма; Режиссер; Жанр; Рейтинг популярности; Цена диска.
 // Реализовать следующие возможности:
 // Поиск по названию;
@@ -119,6 +118,27 @@ Movie* addMovie(Movie* movies, int& size) {//в main передается текущий массив дл
 	return temp; //возвращаем новый со старыми и новыми данными, с другим адресом
 }
 
+//****поиск фильма по имени****//  
+void searchMovieByName(Movie *&films, int size, string name) {
+	
+	Movie found; bool flag = false;
+	for (int i = 0; i < size; i++)//в цикле начиная со следующего элемента
+	{		
+		if (films[i].name == name) {//если поле рейтинг из текущего элемента массива больше рейтинга временного			
+			{
+				found = films[i];					
+			};
+			flag = true;
+			break;
+		}			
+	}	
+	if (flag) {
+		cout << "\nWe found: " << endl;
+		printMovie(found);
+	}
+	else cout << "\nNo such movie in the collection" << endl;
+}
+
 void searchMoviesByGenre(Movie*& movies, int size, int genre, Movie*& outMovies, int& sizeOut) {
 //принимает текущий обновленный массив структур, его размер, значение enum жанра, переданный нулевой массив под фильмы, его размер (нулевой)
 	for (int i = 0; i < size; i++) {//цикл определения размера массива с искомым жанром
@@ -132,17 +152,6 @@ void searchMoviesByGenre(Movie*& movies, int size, int genre, Movie*& outMovies,
 			outMovies[j++] = movies[i]; //..записываем в новый массив структуру из старого, делаем постинкремент
 		}
 	}
-}
-//****поиск фильма по имени****// DRAFT DRAFT DRAFT 
-void searchMovieByName(Movie* films, int size, string name) {
-	
-	for (int i = 0; i < size; i++)//в цикле начиная со следующего элемента
-	{
-		if (films[i].name == name) {//если поле рейтинг из текущего элемента массива больше рейтинга временного
-			printMovie(films[i]);
-		}
-		else cout << "No such movie in collection" << endl;
-	}	
 }
 
 //****поиск фильма с масимальным рейтингом в жанре****//
@@ -171,35 +180,37 @@ int main()
 	Movie f2 = { "Angry Man","S.Lumet", 1, 8.9, 40 };
 	Movie f3 = { "Pulp Fiction","Q.Tarantino", 0, 8.9, 40 };
 	int size = 3; //размера для создания массива структур
-
+	
 	//****вывод первоначального массива****//
 	Movie* films = new Movie[size]{ f1,f2,f3 };//выделяем память под динамический массив типа Movie и инициализируем его структурами 
 	cout << "CURRENT COLLECTION: " << endl;
 	printAllMovies(films, size); //вывод первоначальной коллекции
-	
+			
 	//****добавление нового фильма****//
 	films = addMovie(films, size); //указателю на массив коллекций присвоить результат работы addMovie
 	cout << "\nUPDATED COLLECTION: " << endl;
 	printAllMovies(films, size); //коллекция после добавления
+
+	//****поиск фильма по имени****//
+	cout << "SEARCH MOVIE BY NAME:" << endl;
+	string line;
+	cout << "Please enter movie name: " << endl;
+	while (cin.get() != '\n'); //пока не будет перевода каретки 
+	getline (cin, line); //считывать и записывать в строку
+	searchMovieByName(films, size, line);
+	
 	
 	//****отбор фильмов по жанру****//
 	Movie* comedyFilms = nullptr; //нулевой указатель на новый массив определенного жанра
 	int sizeComedy = 0; //первоначальный размер
-	cout << "FIND FILMS BY GENRE: " << endl;
+	cout << "\nFIND FILMS BY GENRE: " << endl;
 	searchMoviesByGenre(films, size, Drama, comedyFilms, sizeComedy); /*принимает массив структур, его размер, enum жанра с int значением, 
 	созданный нулевой массив под выбранный жанр, его размер (нулевой)*/
 	printAllMovies(comedyFilms, sizeComedy);
-
-	//****поиск фильма по имени****//
-	cout << "SEARCH MOVIE BY NAME" << endl;
-	string name;
-	cout << "Please enter movie name: " << endl;
-	cin >> name;
-	void searchMovieByName(Movie* films, int size, string name);
-
+	
 	//****поиск фильма с масимальным рейтингом в жанре****//
 	Movie top = getTopFilmInGenre(films, size, Drama); //принимает массив структур, его размер, значение жанра в enum 
-	cout << "TOP MOVIE IN GENRE " << printGenre(Drama) << ":" << endl;
+	cout << "TOP MOVIE IN GENRE " << '"' << printGenre(Drama) << '"' << ":" << endl;
 	printMovie(top);
 	delete[] films; //освобождение динамической памяти под массив
 }
